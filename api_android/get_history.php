@@ -37,11 +37,14 @@ if (empty($nim)) {
 }
 
 try {
-    // Prepare query to fetch history
-    $query = "SELECT id_h, nim, totalharga, date, time 
-              FROM history 
-              WHERE nim = ? 
-              ORDER BY date DESC, time DESC 
+    // Prepare query to fetch history with product information
+    $query = "SELECT h.id_h, h.nim, h.totalharga, h.date, h.time, 
+               b.nama_barang, k.nama_kategori 
+              FROM history h
+              LEFT JOIN barang b ON h.id_barang = b.id_barang
+              LEFT JOIN kategori k ON b.id_kategori = k.id_kategori
+              WHERE h.nim = ? 
+              ORDER BY h.date DESC, h.time DESC 
               LIMIT 50";  // Limit to prevent overwhelming data
     
     $stmt = $conn->prepare($query);
