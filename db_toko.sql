@@ -34,7 +34,7 @@ CREATE TABLE `barang` (
   `tgl_input` varchar(255) NOT NULL,
   `tgl_update` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 /*Data for the table `barang` */
 
@@ -48,7 +48,28 @@ insert  into `barang`(`id`,`id_barang`,`id_kategori`,`nama_barang`,`merk`,`harga
 (53,'BR007',3,'Chicato','-','2500','4000','PCS','30','2025-01-31','18 December 2024, 9:55',NULL),
 (54,'BR008',3,'Macaroni','-','200','500','PCS','45','2025-02-01','18 December 2024, 9:56',NULL),
 (55,'BR009',3,'Sosis','-','1000','2000','PCS','19','2024-12-25','18 December 2024, 9:57','19 December 2024, 14:06'),
-(56,'BR010',7,'risol','-','3000','5000','PCS','25','2024-12-28','19 December 2024, 14:45','19 December 2024, 14:46');
+(56,'BR010',7,'risol','-','3000','5000','PCS','25','2024-12-28','19 December 2024, 14:45','19 December 2024, 14:46'),
+(57,'BR011',2,'Nasi Campur','-','0','8000','Porsi','12','2025-03-29','24 March 2025, 11:15',NULL);
+
+/*Table structure for table `daily_limit` */
+
+DROP TABLE IF EXISTS `daily_limit`;
+
+CREATE TABLE `daily_limit` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nim` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `limit_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nim` (`nim`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `daily_limit` */
+
+insert  into `daily_limit`(`id`,`nim`,`limit_amount`,`created_at`,`updated_at`) values 
+(1,'244107027008',50000.00,'2025-03-24 10:00:46','2025-03-24 10:01:00'),
+(2,'12345678',100000.00,'2025-03-24 11:19:48','2025-03-24 11:19:48');
 
 /*Table structure for table `emoney` */
 
@@ -61,12 +82,13 @@ CREATE TABLE `emoney` (
   `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `saldo` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `emoney` */
 
 insert  into `emoney`(`id`,`nim`,`nama`,`foto`,`saldo`) values 
-(8,'244107027008','Frankie Steinlie',NULL,212000.00);
+(8,'244107027008','Frankie Steinlie',NULL,222000.00),
+(16,'12345678','Stein',NULL,200000.00);
 
 /*Table structure for table `food_restriction` */
 
@@ -78,19 +100,21 @@ CREATE TABLE `food_restriction` (
   `id_barang` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nim` (`nim`,`id_barang`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `food_restriction` */
 
 insert  into `food_restriction`(`id`,`nim`,`id_barang`) values 
-(3,'244107027008','BR001'),
-(7,'244107027008','BR003'),
-(5,'244107027008','BR004'),
-(6,'244107027008','BR005'),
-(4,'244107027008','BR006'),
-(8,'244107027008','BR007'),
-(10,'244107027008','BR009'),
-(9,'244107027008','BR010');
+(22,'12345678','BR002'),
+(23,'12345678','BR008'),
+(16,'244107027008','BR001'),
+(15,'244107027008','BR003'),
+(18,'244107027008','BR004'),
+(21,'244107027008','BR005'),
+(17,'244107027008','BR006'),
+(14,'244107027008','BR007'),
+(20,'244107027008','BR009'),
+(19,'244107027008','BR010');
 
 /*Table structure for table `history` */
 
@@ -100,23 +124,25 @@ CREATE TABLE `history` (
   `id_h` int NOT NULL AUTO_INCREMENT,
   `nim` varchar(255) DEFAULT NULL,
   `totalharga` varchar(255) DEFAULT NULL,
+  `id_barang` varchar(20) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
   PRIMARY KEY (`id_h`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `history` */
 
-insert  into `history`(`id_h`,`nim`,`totalharga`,`date`,`time`) values 
-(3,'244107027008','10000','2024-12-03','16:05:26'),
-(4,'244107027008','20000','2024-12-03','16:07:03'),
-(5,'244107027008','20000','2024-12-03','16:23:53'),
-(6,'244107027008','50000','2024-12-03','16:25:34'),
-(7,'244107027008','30000','2024-12-03','16:46:22'),
-(8,'244107027008','10000','2024-12-03','16:49:09'),
-(9,'244107027008','10000','2024-12-03','16:49:54'),
-(10,'244107027008','64000','2024-12-03','17:03:02'),
-(12,'244107027008','4000','2024-12-19','14:10:58');
+insert  into `history`(`id_h`,`nim`,`totalharga`,`id_barang`,`date`,`time`) values 
+(3,'244107027008','10000','BR001','2024-12-03','16:05:26'),
+(4,'244107027008','20000','BR001','2024-12-03','16:07:03'),
+(5,'244107027008','20000','BR003','2024-12-03','16:23:53'),
+(6,'244107027008','50000','BR004','2024-12-03','16:25:34'),
+(7,'244107027008','30000','BR005','2024-12-03','16:46:22'),
+(8,'244107027008','10000','BR006','2024-12-03','16:49:09'),
+(9,'244107027008','10000','BR007','2024-12-03','16:49:54'),
+(10,'244107027008','64000','BR009','2024-12-03','17:03:02'),
+(12,'244107027008','4000','BR010','2024-12-19','14:10:58'),
+(15,'244107027008','34000','BR010','2025-03-24','10:00:10');
 
 /*Table structure for table `kategori` */
 
@@ -135,7 +161,7 @@ insert  into `kategori`(`id_kategori`,`nama_kategori`,`tgl_input`) values
 (1,'Beverage (Minuman)','23 October 2024, 18:19'),
 (2,'Food (Makanan)','23 October 2024, 18:19'),
 (3,'Snack','23 October 2024, 5:28'),
-(7,'gorengann','19 December 2024, 14:45');
+(7,'Gorengan','19 December 2024, 14:45');
 
 /*Table structure for table `login` */
 
@@ -163,13 +189,16 @@ CREATE TABLE `login_mhs` (
   `nama` varchar(255) DEFAULT NULL,
   `nim` varchar(255) DEFAULT NULL,
   `password` varbinary(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `nohp` bigint DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `login_mhs` */
 
-insert  into `login_mhs`(`id`,`nama`,`nim`,`password`) values 
-(2,'Frankie Steinlie','244107027008','$2y$10$Moh18pZ07ztaZtREjSwfD.HCWlZhWgFeRub91suzoWYF65CiLdB3a');
+insert  into `login_mhs`(`id`,`nama`,`nim`,`password`,`email`,`nohp`) values 
+(2,'Frankie Steinlie','244107027008','$2y$10$Moh18pZ07ztaZtREjSwfD.HCWlZhWgFeRub91suzoWYF65CiLdB3a','frankie.steinlie@gmail.com',8883866931),
+(10,'Stein','12345678','$2y$10$JvUVWMM8NEhsHV2MvE535OCJBoLOmhMuAqD7sRUZDCNvyyNIGQ/EG',NULL,NULL);
 
 /*Table structure for table `member` */
 
@@ -254,7 +283,7 @@ CREATE TABLE `validasi` (
   `fotobukti` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `valid` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_validasi`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `validasi` */
 
@@ -272,7 +301,9 @@ insert  into `validasi`(`id_validasi`,`nim`,`nama`,`nominal`,`fotobukti`,`valid`
 (17,'244107027008','Frankie Steinlie',15000.00,'bukti_1742716215_244107027008.jpg',1),
 (22,'244107027008','Frankie Steinlie',100000.00,'bukti_1742716215_244107027008.jpg',1),
 (23,'244107027008','Frankie Steinlie',20000.00,'bukti_1742716215_244107027008.jpg',2),
-(24,'244107027008','Frankie Steinlie',25000.00,'bukti_1742716215_244107027008.jpg',1);
+(24,'244107027008','Frankie Steinlie',25000.00,'bukti_1742716215_244107027008.jpg',1),
+(25,'244107027008','Frankie Steinlie',10000.00,'bukti_1742741264_244107027008.jpg',1),
+(26,'12345678','Stein',200000.00,'bukti_1742790007_12345678.jpg',1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
