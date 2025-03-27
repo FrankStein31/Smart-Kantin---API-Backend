@@ -1,21 +1,16 @@
 <?php
-// Database configuration
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db = "db_toko";
 
-// Create connection
 $conn = new mysqli($host, $user, $pass, $db);
 
-// Explicitly set connection charset and collation
 $conn->set_charset("utf8mb4");
 $conn->query("SET NAMES utf8mb4 COLLATE utf8mb4_general_ci");
 
-// Set header response JSON
 header('Content-Type: application/json');
 
-// Check connection
 if ($conn->connect_error) {
     echo json_encode([
         "success" => false,
@@ -24,9 +19,7 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Ambil data dari POST request
 $json_input = file_get_contents("php://input");
-// Log data untuk debugging
 error_log("Received data: " . $json_input);
 
 $data = json_decode($json_input, true);
@@ -42,12 +35,10 @@ if (!isset($data['nim']) || !isset($data['allowed_food'])) {
 $nim = $data['nim'];
 $allowed_food = $data['allowed_food']; 
 
-// Periksa apakah tabel food_restriction sudah ada
 $check_table = "SHOW TABLES LIKE 'food_restriction'";
 $table_exists = $conn->query($check_table);
 
 if ($table_exists->num_rows == 0) {
-    // Buat tabel jika belum ada
     $create_table = "CREATE TABLE food_restriction (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nim VARCHAR(20) NOT NULL,
@@ -57,18 +48,14 @@ if ($table_exists->num_rows == 0) {
     $conn->query($create_table);
 }
 
-// Hapus semua pembatasan sebelumnya
 $delete_query = "DELETE FROM food_restriction WHERE nim = ?";
 $stmt_delete = $conn->prepare($delete_query);
 $stmt_delete->bind_param("s", $nim);
 $stmt_delete->execute();
 
-// Insert data baru
 $success = true;
 
-// Pastikan allowed_food adalah array
 if (is_array($allowed_food)) {
-    // Gunakan prepared statement untuk insert
     $insert_query = "INSERT INTO food_restriction (nim, id_barang) VALUES (?, ?)";
     $stmt_insert = $conn->prepare($insert_query);
     
@@ -86,7 +73,6 @@ if (is_array($allowed_food)) {
         error_log("Error preparing statement: " . $conn->error);
     }
 } else {
-    // Jika bukan array, coba tangani sebagai string tunggal
     error_log("Warning: allowed_food is not an array, received: " . gettype($allowed_food));
     if (!empty($allowed_food)) {
         $insert_query = "INSERT INTO food_restriction (nim, id_barang) VALUES (?, ?)";
