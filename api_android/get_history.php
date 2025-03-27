@@ -1,21 +1,16 @@
 <?php
-// Database configuration
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db = "db_toko";
 
-// Create connection
 $conn = new mysqli($host, $user, $pass, $db);
 
-// Explicitly set connection charset and collation
 $conn->set_charset("utf8mb4");
 $conn->query("SET NAMES utf8mb4 COLLATE utf8mb4_general_ci");
 
-// Set header response JSON
 header('Content-Type: application/json');
 
-// Check connection
 if ($conn->connect_error) {
     echo json_encode([
         "success" => false,
@@ -24,10 +19,8 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Get NIM from GET parameter
 $nim = $_GET['nim'] ?? '';
 
-// Validate input
 if (empty($nim)) {
     echo json_encode([
         "success" => false,
@@ -37,7 +30,6 @@ if (empty($nim)) {
 }
 
 try {
-    // Prepare query to fetch history with product information
     $query = "SELECT h.id_h, h.nim, h.totalharga, h.date, h.time, 
                b.nama_barang, k.nama_kategori 
               FROM history h
@@ -45,7 +37,7 @@ try {
               LEFT JOIN kategori k ON b.id_kategori = k.id_kategori
               WHERE h.nim = ? 
               ORDER BY h.date DESC, h.time DESC 
-              LIMIT 50";  // Limit to prevent overwhelming data
+              LIMIT 50";  
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $nim);
