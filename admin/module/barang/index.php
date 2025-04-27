@@ -262,7 +262,7 @@
                         <h5 class="modal-title"><i class="fa fa-plus"></i> Tambah Produk</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form action="fungsi/tambah/tambah.php?barang=tambah" method="POST">
+                    <form action="fungsi/tambah/tambah.php?barang=tambah" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <table class="table table-striped bordered">
                                 <?php
@@ -320,6 +320,10 @@
                                     <td>Stok</td>
                                     <td><input type="number" required Placeholder="Stok" class="form-control"
                                             name="stok"></td>
+                                </tr>
+                                <tr>
+                                    <td>Foto Produk</td>
+                                    <td><input type="file" class="form-control" name="foto"></td>
                                 </tr>
                                 <tr>
                                     <td>Expired</td>

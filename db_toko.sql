@@ -30,6 +30,7 @@ CREATE TABLE `barang` (
   `harga_jual` varchar(255) NOT NULL,
   `satuan_barang` varchar(255) NOT NULL,
   `stok` text NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `expired` date NOT NULL,
   `tgl_input` varchar(255) NOT NULL,
   `tgl_update` varchar(255) DEFAULT NULL,
@@ -38,18 +39,18 @@ CREATE TABLE `barang` (
 
 /*Data for the table `barang` */
 
-insert  into `barang`(`id`,`id_barang`,`id_kategori`,`nama_barang`,`merk`,`harga_beli`,`harga_jual`,`satuan_barang`,`stok`,`expired`,`tgl_input`,`tgl_update`) values 
-(47,'BR001',1,'Jus Mangga','- ','10000','15000','PCS','49','2025-01-18','18 December 2024, 9:50',NULL),
-(48,'BR002',1,'Cocacola','-','5000','6000','PCS','50','2025-02-26','18 December 2024, 9:52',NULL),
-(49,'BR003',1,'Cleo','-','3000','4000','PCS','96','2025-03-05','18 December 2024, 9:52',NULL),
-(50,'BR004',2,'Nasi Goreng','-','10000','11000','Porsi','19','2024-12-28','18 December 2024, 9:53',NULL),
-(51,'BR005',2,'Nasi Nugget','-','10000','11000','Porsi','15','2024-12-28','18 December 2024, 9:53',NULL),
-(52,'BR006',2,'Nasi Chilipadi','-','10000','11000','Porsi','16','2024-12-28','18 December 2024, 9:54',NULL),
-(53,'BR007',3,'Chicato','-','2500','4000','PCS','30','2025-01-31','18 December 2024, 9:55',NULL),
-(54,'BR008',3,'Macaroni','-','200','500','PCS','45','2025-02-01','18 December 2024, 9:56',NULL),
-(55,'BR009',3,'Sosis','-','1000','2000','PCS','19','2024-12-25','18 December 2024, 9:57','19 December 2024, 14:06'),
-(56,'BR010',7,'risol','-','3000','5000','PCS','25','2024-12-28','19 December 2024, 14:45','19 December 2024, 14:46'),
-(57,'BR011',2,'Nasi Campur','-','0','8000','Porsi','12','2025-03-29','24 March 2025, 11:15',NULL);
+insert  into `barang`(`id`,`id_barang`,`id_kategori`,`nama_barang`,`merk`,`harga_beli`,`harga_jual`,`satuan_barang`,`stok`,`foto`,`expired`,`tgl_input`,`tgl_update`) values 
+(47,'BR001',1,'Jus Mangga','- ','10000','15000','PCS','49',NULL,'2025-01-18','18 December 2024, 9:50',NULL),
+(48,'BR002',1,'Cocacola','-','5000','6000','PCS','50',NULL,'2025-02-26','18 December 2024, 9:52',NULL),
+(49,'BR003',1,'Cleo','-','3000','4000','PCS','96',NULL,'2025-03-05','18 December 2024, 9:52',NULL),
+(50,'BR004',2,'Nasi Goreng','-','10000','11000','Porsi','19',NULL,'2024-12-28','18 December 2024, 9:53',NULL),
+(51,'BR005',2,'Nasi Nugget','-','10000','11000','Porsi','15',NULL,'2024-12-28','18 December 2024, 9:53',NULL),
+(52,'BR006',2,'Nasi Chilipadi','-','10000','11000','Porsi','16',NULL,'2024-12-28','18 December 2024, 9:54',NULL),
+(53,'BR007',3,'Chicato','-','2500','4000','PCS','30',NULL,'2025-01-31','18 December 2024, 9:55',NULL),
+(54,'BR008',3,'Macaroni','-','200','500','PCS','45',NULL,'2025-02-01','18 December 2024, 9:56',NULL),
+(55,'BR009',3,'Sosis','-','1000','2000','PCS','19',NULL,'2024-12-25','18 December 2024, 9:57','19 December 2024, 14:06'),
+(56,'BR010',7,'risol','-','3000','5000','PCS','25',NULL,'2024-12-28','19 December 2024, 14:45','19 December 2024, 14:46'),
+(57,'BR011',2,'Nasi Campur','-','0','8000','Porsi','12',NULL,'2025-03-29','24 March 2025, 11:15',NULL);
 
 /*Table structure for table `daily_limit` */
 

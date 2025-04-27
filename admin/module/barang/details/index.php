@@ -55,6 +55,16 @@
 				<td><?php echo $hasil['stok'];?></td>
 			</tr>
 			<tr>
+				<td>Foto Produk</td>
+				<td>
+					<?php if($hasil['foto'] != null && $hasil['foto'] != ''): ?>
+					<img src="assets/img/barang/<?php echo $hasil['foto'];?>" width="200" class="img-thumbnail">
+					<?php else: ?>
+					<p class="text-muted">Tidak ada foto</p>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
 				<td>Expired</td>
 				<td><?php echo $hasil['expired'];?></td>
 			</tr>

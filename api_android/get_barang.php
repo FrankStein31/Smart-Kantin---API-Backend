@@ -29,6 +29,14 @@ $result = $conn->query($query);
 if ($result) {
     $barang = [];
     while ($row = $result->fetch_assoc()) {
+        // Tambahkan URL foto
+        if(!empty($row['foto'])) {
+            // Base URL untuk foto produk
+            $baseUrl = "http://" . $_SERVER['HTTP_HOST'] . "/Smart_Kantin/assets/img/barang/";
+            $row['foto_url'] = $baseUrl . $row['foto'];
+        } else {
+            $row['foto_url'] = null;
+        }
         $barang[] = $row;
     }
     

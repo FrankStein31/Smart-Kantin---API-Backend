@@ -199,3 +199,24 @@
 2025-03-27 01:52:32 - API get_profile.php dipanggil
 2025-03-27 01:52:32 - NIM: 244107027008
 2025-03-27 01:52:32 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:14:17 - API get_profile.php dipanggil
+2025-04-27 23:14:17 - NIM: 244107027008
+2025-04-27 23:14:17 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:14:26 - API get_profile.php dipanggil
+2025-04-27 23:14:26 - NIM: 244107027008
+2025-04-27 23:14:26 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:14:30 - API get_profile.php dipanggil
+2025-04-27 23:14:30 - NIM: 244107027008
+2025-04-27 23:14:30 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:14:37 - API get_profile.php dipanggil
+2025-04-27 23:14:37 - NIM: 244107027008
+2025-04-27 23:14:37 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:44:31 - API get_profile.php dipanggil
+2025-04-27 23:44:31 - NIM: 244107027008
+2025-04-27 23:44:31 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:46:23 - API get_profile.php dipanggil
+2025-04-27 23:46:23 - NIM: 244107027008
+2025-04-27 23:46:23 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-27 23:46:33 - API get_profile.php dipanggil
+2025-04-27 23:46:33 - NIM: 244107027008
+2025-04-27 23:46:33 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}

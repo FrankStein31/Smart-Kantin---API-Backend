@@ -26,6 +26,28 @@ if (!empty($_SESSION['admin'])) {
         $expired = $_POST['expired'];
         $tgl = $_POST['tgl'];
 
+        // Handle foto upload
+        $foto = '';
+        if(!empty($_FILES['foto']['name'])){
+            $target_dir = "../../assets/img/barang/";
+            $foto = time() . '_' . basename($_FILES["foto"]["name"]);
+            $target_file = $target_dir . $foto;
+            
+            // Cek dan buat direktori jika belum ada
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir, 0777, true);
+            }
+            
+            // Upload file
+            if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
+                // File berhasil diupload
+            } else {
+                echo '<script>alert("Maaf, terjadi kesalahan saat mengupload file.");
+                      window.location="../../index.php?page=barang"</script>';
+                exit;
+            }
+        }
+
         $data[] = $id;
         $data[] = $kategori;
         $data[] = $nama;
@@ -34,10 +56,11 @@ if (!empty($_SESSION['admin'])) {
         $data[] = $jual;
         $data[] = $satuan;
         $data[] = $stok;
+        $data[] = $foto;
         $data[] = $expired;
         $data[] = $tgl;
-        $sql = 'INSERT INTO barang (id_barang,id_kategori,nama_barang,merk,harga_beli,harga_jual,satuan_barang,stok,expired,tgl_input) 
-			    VALUES (?,?,?,?,?,?,?,?,?,?) ';
+        $sql = 'INSERT INTO barang (id_barang,id_kategori,nama_barang,merk,harga_beli,harga_jual,satuan_barang,stok,foto,expired,tgl_input) 
+			    VALUES (?,?,?,?,?,?,?,?,?,?,?) ';
         $row = $config -> prepare($sql);
         $row -> execute($data);
         echo '<script>window.location="../../index.php?page=barang&success=tambah-data"</script>';

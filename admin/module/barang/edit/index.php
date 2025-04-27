@@ -1,4 +1,4 @@
- <?php 
+<?php 
 	$id = $_GET['barang'];
 	$hasil = $lihat -> barang_edit($id);
 ?>
@@ -17,7 +17,7 @@
 <div class="card card-body">
 	<div class="table-responsive">
 		<table class="table table-striped">
-			<form action="fungsi/edit/edit.php?barang=edit" method="POST">
+			<form action="fungsi/edit/edit.php?barang=edit" method="POST" enctype="multipart/form-data">
 				<tr>
 					<td>ID Barang</td>
 					<td><input type="text" readonly="readonly" class="form-control" value="<?php echo $hasil['id_barang'];?>"
@@ -50,6 +50,17 @@
 				<tr>
 					<td>Harga Jual</td>
 					<td><input type="number" class="form-control" value="<?php echo $hasil['harga_jual'];?>" name="jual"></td>
+				</tr>
+				<tr>
+					<td>Foto Produk</td>
+					<td>
+						<?php if($hasil['foto'] != null && $hasil['foto'] != ''): ?>
+						<img src="assets/img/barang/<?php echo $hasil['foto'];?>" width="100" class="mb-2">
+						<?php endif; ?>
+						<input type="file" class="form-control" name="foto">
+						<small class="text-muted">Kosongkan jika tidak ingin mengubah foto</small>
+						<input type="hidden" name="foto_lama" value="<?php echo $hasil['foto'];?>">
+					</td>
 				</tr>
 				<tr>
 					<td>Satuan Barang</td>

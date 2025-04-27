@@ -62,6 +62,31 @@ if (!empty($_SESSION['admin'])) {
         $expired = htmlentities($_POST['expired']);
         $tgl = htmlentities($_POST['tgl']);
 
+        // Handle foto upload
+        $foto = $_POST['foto_lama'];
+        if(!empty($_FILES['foto']['name'])){
+            $target_dir = "../../assets/img/barang/";
+            $foto = time() . '_' . basename($_FILES["foto"]["name"]);
+            $target_file = $target_dir . $foto;
+            
+            // Cek dan buat direktori jika belum ada
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir, 0777, true);
+            }
+            
+            // Upload file
+            if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
+                // Hapus foto lama jika ada
+                if($_POST['foto_lama'] != '' && file_exists($target_dir . $_POST['foto_lama'])) {
+                    unlink($target_dir . $_POST['foto_lama']);
+                }
+            } else {
+                echo '<script>alert("Maaf, terjadi kesalahan saat mengupload file.");
+                      window.location="../../index.php?page=barang/edit&barang='.$id.'"</script>';
+                exit;
+            }
+        }
+
         $data[] = $kategori;
         $data[] = $nama;
         $data[] = $merk;
@@ -69,11 +94,12 @@ if (!empty($_SESSION['admin'])) {
         $data[] = $jual;
         $data[] = $satuan;
         $data[] = $stok;
+        $data[] = $foto;
         $data[] = $expired;
         $data[] = $tgl;
         $data[] = $id;
         $sql = 'UPDATE barang SET id_kategori=?, nama_barang=?, merk=?, 
-				harga_beli=?, harga_jual=?, satuan_barang=?, stok=?, expired=?, tgl_update=?  WHERE id_barang=?';
+				harga_beli=?, harga_jual=?, satuan_barang=?, stok=?, foto=?, expired=?, tgl_update=?  WHERE id_barang=?';
         $row = $config -> prepare($sql);
         $row -> execute($data);
         echo '<script>window.location="../../index.php?page=barang/edit&barang='.$id.'&success=edit-data"</script>';
