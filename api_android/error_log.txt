@@ -244,3 +244,39 @@
 2025-04-28 00:51:01 - API get_profile.php dipanggil
 2025-04-28 00:51:01 - NIM: 244107027008
 2025-04-28 00:51:01 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:32:46 - API get_profile.php dipanggil
+2025-04-28 01:32:46 - NIM: 244107027008
+2025-04-28 01:32:46 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:33:41 - API get_profile.php dipanggil
+2025-04-28 01:33:41 - NIM: 244107027008
+2025-04-28 01:33:41 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:35:52 - API get_profile.php dipanggil
+2025-04-28 01:35:52 - NIM: 244107027008
+2025-04-28 01:35:52 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:42:48 - API get_profile.php dipanggil
+2025-04-28 01:42:48 - NIM: 244107027008
+2025-04-28 01:42:48 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:43:03 - API get_profile.php dipanggil
+2025-04-28 01:43:03 - NIM: 244107027008
+2025-04-28 01:43:03 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:43:05 - API get_profile.php dipanggil
+2025-04-28 01:43:05 - NIM: 244107027008
+2025-04-28 01:43:05 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-04-28 01:43:27 - API get_profile.php dipanggil
+2025-04-28 01:43:27 - NIM: 12345678
+2025-04-28 01:43:27 - Data ditemukan: {"nama":"Stein","nim":"12345678","saldo":"200000.00","email":null,"nohp":null}
+2025-04-28 01:43:50 - API get_profile.php dipanggil
+2025-04-28 01:43:50 - NIM: 12345678
+2025-04-28 01:43:50 - Data ditemukan: {"nama":"Stein","nim":"12345678","saldo":"200000.00","email":null,"nohp":null}
+2025-04-28 01:44:17 - API get_profile.php dipanggil
+2025-04-28 01:44:17 - NIM: 12345678
+2025-04-28 01:44:17 - Data ditemukan: {"nama":"Stein","nim":"12345678","saldo":"200000.00","email":null,"nohp":null}
+2025-04-28 01:44:20 - API get_profile.php dipanggil
+2025-04-28 01:44:20 - NIM: 12345678
+2025-04-28 01:44:20 - Data ditemukan: {"nama":"Stein","nim":"12345678","saldo":"200000.00","email":null,"nohp":null}
+2025-04-28 01:44:24 - API get_profile.php dipanggil
+2025-04-28 01:44:24 - NIM: 12345678
+2025-04-28 01:44:24 - Data ditemukan: {"nama":"Stein","nim":"12345678","saldo":"200000.00","email":null,"nohp":null}
+2025-04-28 01:44:27 - API get_profile.php dipanggil
+2025-04-28 01:44:27 - NIM: 12345678
+2025-04-28 01:44:27 - Data ditemukan: {"nama":"Stein","nim":"12345678","saldo":"200000.00","email":null,"nohp":null}
