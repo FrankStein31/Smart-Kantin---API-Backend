@@ -180,7 +180,7 @@ try {
         
         if ($limit_amount > 0) {
             $today = date('Y-m-d');
-            $query_spend = "SELECT SUM(totalharga) as total FROM history WHERE nim = ? AND date = ?";
+            $query_spend = "SELECT SUM(totalharga) as total FROM history WHERE nim = ? AND date = ? GROUP BY date";
             $stmt_spend = $conn->prepare($query_spend);
             $stmt_spend->bind_param("ss", $nim, $today);
             $stmt_spend->execute();

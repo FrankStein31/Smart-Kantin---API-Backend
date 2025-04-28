@@ -50,7 +50,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     
     $today = date('Y-m-d');
-    $query_spend = "SELECT SUM(totalharga) as total FROM history WHERE nim = ? AND date = ?";
+    $query_spend = "SELECT SUM(totalharga) as total FROM history WHERE nim = ? AND date = ? GROUP BY date";
     $stmt_spend = $conn->prepare($query_spend);
     $stmt_spend->bind_param("ss", $nim, $today);
     $stmt_spend->execute();
