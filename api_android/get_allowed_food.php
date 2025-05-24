@@ -50,8 +50,11 @@ if ($restriction_count > 0) {
     $query = "SELECT b.*, k.nama_kategori 
               FROM barang b 
               JOIN kategori k ON b.id_kategori = k.id_kategori 
-              JOIN food_restriction fr ON b.id_barang = fr.id_barang 
-              WHERE fr.nim = '$nim' 
+              WHERE NOT EXISTS (
+                  SELECT 1 FROM food_restriction fr 
+                  WHERE fr.id_barang = b.id_barang 
+                  AND fr.nim = '$nim'
+              )
               ORDER BY b.nama_barang ASC";
 } else {
     $query = "SELECT b.*, k.nama_kategori 

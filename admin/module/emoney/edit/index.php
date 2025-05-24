@@ -21,22 +21,8 @@ $data = $row->fetch();
 
 <div class="card">
     <div class="card-body">
-        <form action="fungsi/edit/edit.php?emoney=edit" method="POST" enctype="multipart/form-data">
+        <form action="fungsi/edit/edit.php?emoney=edit" method="POST">
             <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
-            
-            <div class="form-group">
-                <label>Foto Saat Ini</label><br>
-                <?php if($data['foto']): ?>
-                    <img src="assets/img/emoney/<?php echo $data['foto']; ?>" alt="Foto" style="width:100px; height:100px; object-fit:cover;">
-                <?php else: ?>
-                    <img src="assets/img/default-user.png" alt="Default" style="width:100px; height:100px; object-fit:cover;">
-                <?php endif; ?>
-            </div>
-
-            <div class="form-group">
-                <label>Ganti Foto (Kosongkan jika tidak ingin mengganti)</label>
-                <input type="file" name="foto" class="form-control" accept="image/*">
-            </div>
 
             <div class="form-group">
                 <label>NIM</label>

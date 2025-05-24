@@ -151,7 +151,7 @@ try {
     if ($restrictionResult->num_rows > 0) {
         echo json_encode([
             "success" => false,
-            "message" => "Maaf, Anda tidak diizinkan membeli produk ini"
+            "message" => "Maaf, produk ini dibatasi untuk Anda"
         ]);
         exit();
     }

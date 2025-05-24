@@ -82,13 +82,9 @@
                 <h5 class="modal-title"><i class="fa fa-plus"></i> Tambah E-Money</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="fungsi/tambah/tambah.php?emoney=tambah" method="POST" enctype="multipart/form-data">
+            <form action="fungsi/tambah/tambah.php?emoney=tambah" method="POST">
                 <div class="modal-body">
                     <table class="table table-striped bordered">
-                        <tr>
-                            <td>Foto</td>
-                            <td><input type="file" name="foto" class="form-control" accept="image/*"></td>
-                        </tr>
                         <tr>
                             <td>NIM</td>
                             <td><input type="text" name="nim" class="form-control" required autocomplete="off"></td>

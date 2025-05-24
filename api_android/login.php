@@ -18,7 +18,7 @@ $password = $_POST['password'];
 if (empty($nim) || empty($password)) {
     echo json_encode([
         "success" => false,
-        "message" => "NIM dan password harus diisi"
+        "message" => "No Induk dan password harus diisi"
     ]);
     exit();
 }
@@ -52,7 +52,7 @@ if ($result->num_rows > 0) {
 } else {
     echo json_encode([
         "success" => false,
-        "message" => "NIM tidak terdaftar"
+        "message" => "No Induk tidak terdaftar"
     ]);
 }
 

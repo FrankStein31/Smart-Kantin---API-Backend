@@ -62,7 +62,7 @@
         </div>
     </li>
     <!-- Nav Item - Pages Collapse Menu -->
-    <!-- <li class="nav-item active">
+    <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true"
             aria-controls="collapse3">
             <i class="fas fa-fw fa-desktop"></i>
@@ -74,7 +74,7 @@
                 <a class="collapse-item" href="index.php?page=laporan">Laporan Penjualan</a>
             </div>
         </div>
-    </li> -->
+    </li>
     <!-- <hr class="sidebar-divider">
     <li class="nav-item active">
         <a class="nav-link" href="index.php?page=pengaturan">
