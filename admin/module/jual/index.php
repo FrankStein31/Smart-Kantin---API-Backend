@@ -60,6 +60,31 @@ $hasil = $lihat->member_edit($id);
 							<td><b>Tanggal</b></td>
 							<td><input type="text" readonly="readonly" class="form-control" value="<?php echo date("j F Y, G:i"); ?>" name="tgl"></td>
 						</tr>
+						<tr>
+							<td><b>Siswa (Opsional)</b></td>
+							<td>
+								<select name="nim" class="form-control" onchange="updateNimPenjualan(this.value)">
+									<option value="">- Pilih Siswa -</option>
+									<?php
+									$sql = 'SELECT nim, nama FROM emoney ORDER BY nama ASC';
+									$stmt = $config->prepare($sql);
+									$stmt->execute();
+									$mahasiswa = $stmt->fetchAll(PDO::FETCH_ASSOC);
+									
+									// Ambil NIM dari tabel penjualan
+									$sql_nim = 'SELECT DISTINCT nim FROM penjualan WHERE nim IS NOT NULL LIMIT 1';
+									$stmt_nim = $config->prepare($sql_nim);
+									$stmt_nim->execute();
+									$selected_nim = $stmt_nim->fetch(PDO::FETCH_COLUMN);
+									
+									foreach($mahasiswa as $mhs):
+										$selected = ($mhs['nim'] == $selected_nim) ? 'selected' : '';
+									?>
+										<option value="<?php echo $mhs['nim']; ?>" <?php echo $selected; ?>><?php echo $mhs['nim'] . ' - ' . $mhs['nama']; ?></option>
+									<?php endforeach; ?>
+								</select>
+							</td>
+						</tr>
 					</table>
 					<table class="table table-bordered w-100" id="example1">
 						<thead>
@@ -69,6 +94,7 @@ $hasil = $lihat->member_edit($id);
 								<td style="width:10%;"> Jumlah</td>
 								<td style="width:20%;"> Total</td>
 								<td> Kasir</td>
+								<td> Siswa</td>
 								<td> Aksi</td>
 							</tr>
 						</thead>
@@ -89,6 +115,19 @@ $hasil = $lihat->member_edit($id);
 									</td>
 									<td>Rp.<?php echo number_format($isi['total']); ?>,-</td>
 									<td><?php echo $isi['nm_member']; ?></td>
+									<td>
+										<?php 
+										if(!empty($isi['nim'])) {
+											$sql = 'SELECT nama FROM emoney WHERE nim = ?';
+											$stmt = $config->prepare($sql);
+											$stmt->execute(array($isi['nim']));
+											$siswa = $stmt->fetch();
+											echo $siswa['nama'];
+										} else {
+											echo '-';
+										}
+										?>
+									</td>
 									<td>
 										<button type="submit" class="btn btn-warning">Update</button>
 										</form>
@@ -117,6 +156,7 @@ $hasil = $lihat->member_edit($id);
 									if ($bayar >= $total) {
 										$id_barang = $_POST['id_barang'];
 										$id_member = $_POST['id_member'];
+										$nim = $_POST['nim'];
 										$jumlah = $_POST['jumlah'];
 										$total = $_POST['total1'];
 										$tgl_input = $_POST['tgl_input'];
@@ -124,11 +164,27 @@ $hasil = $lihat->member_edit($id);
 										$jumlah_dipilih = count($id_barang);
 
 										for ($x = 0; $x < $jumlah_dipilih; $x++) {
-
-											$d = array($id_barang[$x], $id_member[$x], $jumlah[$x], $total[$x], $tgl_input[$x], $periode[$x]);
-											$sql = "INSERT INTO nota (id_barang,id_member,jumlah,total,tanggal_input,periode) VALUES(?,?,?,?,?,?)";
+											$d = array($id_barang[$x], $id_member[$x], $nim[$x], $jumlah[$x], $total[$x], $tgl_input[$x], $periode[$x]);
+											$sql = "INSERT INTO nota (id_barang,id_member,nim,jumlah,total,tanggal_input,periode) VALUES(?,?,?,?,?,?,?)";
 											$row = $config->prepare($sql);
 											$row->execute($d);
+
+											// Jika ada NIM, masukkan ke history
+											if (!empty($nim[$x])) {
+												$date = date('Y-m-d');
+												$time = date('H:i:s');
+												$history_data = array(
+													'nim' => $nim[$x],
+													'totalharga' => $total[$x],
+													'id_barang' => $id_barang[$x],
+													'date' => $date,
+													'time' => $time
+												);
+												
+												$sql_history = 'INSERT INTO history (nim,totalharga,id_barang,date,time) VALUES (:nim,:totalharga,:id_barang,:date,:time)';
+												$stmt_history = $config->prepare($sql_history);
+												$stmt_history->execute($history_data);
+											}
 
 											// ubah stok barang
 											$sql_barang = "SELECT * FROM barang WHERE id_barang = ?";
@@ -160,6 +216,7 @@ $hasil = $lihat->member_edit($id);
 								<?php foreach ($hasil_penjualan as $isi) {; ?>
 									<input type="hidden" name="id_barang[]" value="<?php echo $isi['id_barang']; ?>">
 									<input type="hidden" name="id_member[]" value="<?php echo $isi['id_member']; ?>">
+									<input type="hidden" name="nim[]" value="<?php echo $isi['nim']; ?>">
 									<input type="hidden" name="jumlah[]" value="<?php echo $isi['jumlah']; ?>">
 									<input type="hidden" name="total1[]" value="<?php echo $isi['total']; ?>">
 									<input type="hidden" name="tgl_input[]" value="<?php echo $isi['tanggal_input']; ?>">
@@ -169,19 +226,13 @@ $hasil = $lihat->member_edit($id);
 								<tr>
 									<td>Total Semua </td>
 									<td><input type="text" class="form-control" name="total" value="<?php echo $total_bayar; ?>"></td>
-
-									<!-- <td>Bayar </td>
-									<td><input type="text" class="form-control" name="bayar" value="<?php echo $bayar; ?>"></td> -->
-									
 									<td>
-										<!-- <button class="btn btn-success" > <i class="fa fa-shopping-cart" ></i> Bayar</button> -->
-
-									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#bayarModal">
-										<i class="fa fa-shopping-cart"></i> Bayar
-									</button>
-
-										<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Scan Qr</button>
-
+										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#bayarModal">
+											<i class="fa fa-shopping-cart"></i> Bayar
+										</button>
+										<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+											<i class="fa fa-plus"></i> Scan Qr
+										</button>
 										<?php if (!empty($_GET['nota'] == 'yes')) { ?>
 											<a class="btn btn-danger" href="fungsi/hapus/hapus.php?penjualan=jual">
 												<b>RESET</b></a>
@@ -268,6 +319,7 @@ $hasil = $lihat->member_edit($id);
 						<?php foreach ($hasil_penjualan as $isi) { ?>
 							<input type="hidden" name="id_barang[]" value="<?php echo $isi['id_barang']; ?>">
 							<input type="hidden" name="id_member[]" value="<?php echo $isi['id_member']; ?>">
+							<input type="hidden" name="nim[]" value="<?php echo $isi['nim']; ?>">
 							<input type="hidden" name="jumlah[]" value="<?php echo $isi['jumlah']; ?>">
 							<input type="hidden" name="total1[]" value="<?php echo $isi['total']; ?>">
 							<input type="hidden" name="tgl_input[]" value="<?php echo $isi['tanggal_input']; ?>">
@@ -288,6 +340,7 @@ $hasil = $lihat->member_edit($id);
 		// Get payment values
 		var totalBayar = <?php echo $total_bayar; ?>;
 		var jumlahBayar = parseFloat(document.getElementById('jumlahBayar').value);
+		var selectedNim = document.querySelector('select[name="nim"]').value;
 
 		if (isNaN(jumlahBayar) || jumlahBayar < totalBayar) {
 			alert("Jumlah bayar tidak cukup atau tidak valid!");
@@ -304,9 +357,10 @@ $hasil = $lihat->member_edit($id);
 			items.push({
 				id_barang: '<?php echo $isi['id_barang']; ?>',
 				id_member: '<?php echo $isi['id_member']; ?>',
+				nim: selectedNim,
 				jumlah: '<?php echo $isi['jumlah']; ?>',
 				total: '<?php echo $isi['total']; ?>',
-				tgl_input: '<?php echo date('d F Y, H:i'); ?>', // Changed date format
+				tgl_input: '<?php echo date('d F Y, H:i'); ?>', 
 				periode: '<?php echo date('m-Y'); ?>'
 			});
 		<?php } ?>
@@ -316,7 +370,8 @@ $hasil = $lihat->member_edit($id);
 			items: items,
 			total: totalBayar,
 			bayar: jumlahBayar,
-			kembalian: kembalian
+			kembalian: kembalian,
+			nim: selectedNim
 		};
 
 		// Send payment data to server
@@ -381,4 +436,27 @@ $hasil = $lihat->member_edit($id);
             });
         });
     });
+
+function updateNimPenjualan(nim) {
+    fetch('fungsi/edit/edit.php?update_nim=yes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'nim=' + encodeURIComponent(nim)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Refresh halaman untuk menampilkan perubahan
+            window.location.reload();
+        } else {
+            alert('Gagal mengupdate NIM: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat mengupdate NIM');
+    });
+}
 </script>

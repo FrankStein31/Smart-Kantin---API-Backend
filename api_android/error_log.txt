@@ -313,3 +313,33 @@
 2025-05-24 10:51:42 - API get_profile.php dipanggil
 2025-05-24 10:51:42 - NIM: 244107027008
 2025-05-24 10:51:42 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:20:52 - API get_profile.php dipanggil
+2025-06-02 09:20:52 - NIM: 244107027008
+2025-06-02 09:20:52 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:21:18 - API get_profile.php dipanggil
+2025-06-02 09:21:18 - NIM: 244107027008
+2025-06-02 09:21:18 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:21:24 - API get_profile.php dipanggil
+2025-06-02 09:21:24 - NIM: 244107027008
+2025-06-02 09:21:24 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:40:24 - API get_profile.php dipanggil
+2025-06-02 09:40:24 - NIM: 244107027008
+2025-06-02 09:40:24 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:40:28 - API get_profile.php dipanggil
+2025-06-02 09:40:28 - NIM: 244107027008
+2025-06-02 09:40:28 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:40:42 - API get_profile.php dipanggil
+2025-06-02 09:40:42 - NIM: 244107027008
+2025-06-02 09:40:42 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:48:13 - API get_profile.php dipanggil
+2025-06-02 09:48:13 - NIM: 244107027008
+2025-06-02 09:48:13 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:48:39 - API get_profile.php dipanggil
+2025-06-02 09:48:39 - NIM: 244107027008
+2025-06-02 09:48:39 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 09:48:47 - API get_profile.php dipanggil
+2025-06-02 09:48:47 - NIM: 244107027008
+2025-06-02 09:48:47 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}
+2025-06-02 10:06:38 - API get_profile.php dipanggil
+2025-06-02 10:06:38 - NIM: 244107027008
+2025-06-02 10:06:38 - Data ditemukan: {"nama":"Frankie Steinlie","nim":"244107027008","saldo":"222000.00","email":"frankie.steinlie@gmail.com","nohp":8883866931}

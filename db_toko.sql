@@ -40,12 +40,12 @@ CREATE TABLE `barang` (
 /*Data for the table `barang` */
 
 insert  into `barang`(`id`,`id_barang`,`id_kategori`,`nama_barang`,`merk`,`harga_beli`,`harga_jual`,`satuan_barang`,`stok`,`foto`,`expired`,`tgl_input`,`tgl_update`) values 
-(47,'BR001',1,'Jus Mangga','- ','10000','15000','PCS','47','1745796381_back hitam 3.jpg','2025-01-18','18 December 2024, 9:50','28 April 2025, 6:26'),
-(48,'BR002',1,'Cocacola','-','5000','6000','PCS','50','1745796365_back hitam 2.jpg','2025-02-26','18 December 2024, 9:52','28 April 2025, 6:26'),
-(49,'BR003',1,'Cleo','-','3000','4000','PCS','96','1745796358_back hitam 3.jpg','2025-03-05','18 December 2024, 9:52','28 April 2025, 6:25'),
+(47,'BR001',1,'Jus Mangga','- ','10000','15000','PCS','40','1745796381_back hitam 3.jpg','2025-01-18','18 December 2024, 9:50','28 April 2025, 6:26'),
+(48,'BR002',1,'Cocacola','-','5000','6000','PCS','46','1745796365_back hitam 2.jpg','2025-02-26','18 December 2024, 9:52','28 April 2025, 6:26'),
+(49,'BR003',1,'Cleo','-','3000','4000','PCS','93','1745796358_back hitam 3.jpg','2025-03-05','18 December 2024, 9:52','28 April 2025, 6:25'),
 (50,'BR004',2,'Nasi Goreng','-','10000','11000','Porsi','19','1745796358_back hitam 3.jpg','2024-12-28','18 December 2024, 9:53',NULL),
 (51,'BR005',2,'Nasi Nugget','-','10000','11000','Porsi','15','1745796347_back hitam 4.jpg','2024-12-28','18 December 2024, 9:53','28 April 2025, 6:25'),
-(52,'BR006',2,'Nasi Chilipadi','-','10000','11000','Porsi','16','1745796358_back hitam 3.jpg','2024-12-28','18 December 2024, 9:54',NULL),
+(52,'BR006',2,'Nasi Chilipadi','-','10000','11000','Porsi','15','1745796358_back hitam 3.jpg','2024-12-28','18 December 2024, 9:54',NULL),
 (53,'BR007',3,'Chicato','-','2500','4000','PCS','30','1745796336_back hitam.jpg','2025-01-31','18 December 2024, 9:55','28 April 2025, 6:25'),
 (54,'BR008',3,'Macaroni','-','200','500','PCS','45','1745796328_back salib 1.jpg','2025-02-01','18 December 2024, 9:56','28 April 2025, 6:25'),
 (55,'BR009',3,'Sosis','-','1000','2000','PCS','19','1745796312_back hitam 4.jpg','2024-12-25','18 December 2024, 9:57','28 April 2025, 6:25'),
@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `daily_limit`;
 
 CREATE TABLE `daily_limit` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nim` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `nim` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `limit_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -78,8 +78,8 @@ DROP TABLE IF EXISTS `emoney`;
 
 CREATE TABLE `emoney` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nim` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `nim` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `saldo` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
@@ -125,7 +125,7 @@ CREATE TABLE `history` (
   `date` date DEFAULT NULL,
   `time` time DEFAULT NULL,
   PRIMARY KEY (`id_h`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `history` */
 
@@ -139,7 +139,10 @@ insert  into `history`(`id_h`,`nim`,`totalharga`,`id_barang`,`date`,`time`) valu
 (9,'244107027008','10000','BR007','2025-04-27','16:49:54'),
 (10,'244107027008','64000','BR009','2025-04-28','17:03:02'),
 (12,'244107027008','4000','BR010','2024-12-19','14:10:58'),
-(15,'244107027008','34000','BR010','2025-04-20','10:00:10');
+(15,'244107027008','34000','BR010','2025-04-20','10:00:10'),
+(16,'244107027008','30000','BR001','2025-06-02','17:03:22'),
+(17,'244107027008','15000','BR001','2025-06-02','17:06:10'),
+(18,'244107027008','12000','BR002','2025-06-02','17:06:10');
 
 /*Table structure for table `kategori` */
 
@@ -225,17 +228,26 @@ CREATE TABLE `nota` (
   `id_nota` int NOT NULL AUTO_INCREMENT,
   `id_barang` varchar(255) NOT NULL,
   `id_member` int NOT NULL,
+  `nim` varchar(255) DEFAULT NULL,
   `jumlah` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
   `tanggal_input` varchar(255) NOT NULL,
   `periode` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_nota`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 /*Data for the table `nota` */
 
-insert  into `nota`(`id_nota`,`id_barang`,`id_member`,`jumlah`,`total`,`tanggal_input`,`periode`) values 
-(35,'BR001',1,'2','30000','24 May 2025, 12:49','05-2025');
+insert  into `nota`(`id_nota`,`id_barang`,`id_member`,`nim`,`jumlah`,`total`,`tanggal_input`,`periode`) values 
+(35,'BR001',1,'244107027008','2','30000','24 May 2025, 12:49','05-2025'),
+(36,'BR001',1,'244107027008','3','45000','29 May 2025, 05:36','05-2025'),
+(37,'BR001',1,'244107027008','1','15000','29 May 2025, 05:38','05-2025'),
+(38,'BR002',1,'244107027008','2','12000','29 May 2025, 05:38','05-2025'),
+(39,'BR006',1,'244107027008','1','11000','29 May 2025, 5:39','05-2025'),
+(40,'BR003',1,NULL,'3','12000','02 June 2025, 16:49','06-2025'),
+(41,'BR001',1,'244107027008','2','30000','02 June 2025, 17:02','06-2025'),
+(42,'BR001',1,'244107027008','1','15000','02 June 2025, 17:06','06-2025'),
+(43,'BR002',1,'244107027008','2','12000','02 June 2025, 17:06','06-2025');
 
 /*Table structure for table `penjualan` */
 
@@ -245,11 +257,12 @@ CREATE TABLE `penjualan` (
   `id_penjualan` int NOT NULL AUTO_INCREMENT,
   `id_barang` varchar(255) NOT NULL,
   `id_member` int NOT NULL,
+  `nim` varchar(255) DEFAULT NULL,
   `jumlah` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
   `tanggal_input` varchar(255) NOT NULL,
   PRIMARY KEY (`id_penjualan`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 
 /*Data for the table `penjualan` */
 
@@ -277,10 +290,10 @@ DROP TABLE IF EXISTS `validasi`;
 
 CREATE TABLE `validasi` (
   `id_validasi` int NOT NULL AUTO_INCREMENT,
-  `nim` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nim` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nominal` decimal(10,2) DEFAULT NULL,
-  `fotobukti` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fotobukti` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `valid` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_validasi`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

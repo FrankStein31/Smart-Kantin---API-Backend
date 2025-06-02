@@ -299,4 +299,26 @@ if (!empty($_SESSION['admin'])) {
 <?php
         }
     }
+
+    if(!empty($_GET['update_nim'])){
+        $nim = isset($_POST['nim']) ? $_POST['nim'] : null;
+        
+        try {
+            // Update semua record di tabel penjualan dengan NIM yang dipilih
+            $sql = "UPDATE penjualan SET nim = ?";
+            $row = $config->prepare($sql);
+            $row->execute(array($nim));
+            
+            echo json_encode([
+                'success' => true,
+                'message' => 'NIM berhasil diupdate'
+            ]);
+        } catch(PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+        exit;
+    }
 }

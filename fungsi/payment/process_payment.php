@@ -4,76 +4,81 @@
 session_start();
 include '../../config.php';
 
-// Get and decode JSON data
+// Get JSON data
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-try {
-    // Start transaction
-    $config->beginTransaction();
-    
-    foreach ($data['items'] as $item) {
-        // Check stock availability
-        $sql_check = "SELECT stok FROM barang WHERE id_barang = ?";
-        $stmt_check = $config->prepare($sql_check);
-        $stmt_check->execute([$item['id_barang']]);
-        $stok = $stmt_check->fetch(PDO::FETCH_ASSOC)['stok'];
-        
-        // Calculate new stock
-        $new_stok = $stok - intval($item['jumlah']);
-        if ($new_stok < 0) {
-            throw new Exception("Stok tidak mencukupi untuk " . $item['id_barang']);
+if ($data) {
+    try {
+        $config->beginTransaction();
+
+        foreach ($data['items'] as $item) {
+            // Insert into nota
+            $sql = "INSERT INTO nota (id_barang, id_member, nim, jumlah, total, tanggal_input, periode) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $config->prepare($sql);
+            $stmt->execute([
+                $item['id_barang'],
+                $item['id_member'],
+                $item['nim'],
+                $item['jumlah'],
+                $item['total'],
+                $item['tgl_input'],
+                $item['periode']
+            ]);
+
+            // Insert into history if NIM exists
+            if (!empty($item['nim'])) {
+                $date = date('Y-m-d');
+                $time = date('H:i:s');
+                $history_data = [
+                    'nim' => $item['nim'],
+                    'totalharga' => $item['total'],
+                    'id_barang' => $item['id_barang'],
+                    'date' => $date,
+                    'time' => $time
+                ];
+                
+                $sql_history = 'INSERT INTO history (nim,totalharga,id_barang,date,time) 
+                               VALUES (:nim,:totalharga,:id_barang,:date,:time)';
+                $stmt_history = $config->prepare($sql_history);
+                $stmt_history->execute($history_data);
+            }
+
+            // Update stock
+            $sql_barang = "SELECT stok FROM barang WHERE id_barang = ?";
+            $stmt_barang = $config->prepare($sql_barang);
+            $stmt_barang->execute([$item['id_barang']]);
+            $barang = $stmt_barang->fetch();
+
+            $new_stok = $barang['stok'] - $item['jumlah'];
+            $sql_update = "UPDATE barang SET stok = ? WHERE id_barang = ?";
+            $stmt_update = $config->prepare($sql_update);
+            $stmt_update->execute([$new_stok, $item['id_barang']]);
         }
-        
-        // Format the date in the desired format
-        $formatted_date = date('d F Y, H:i', strtotime($item['tgl_input']));
-        
-        // Insert into nota with proper data type handling
-        $sql_nota = "INSERT INTO nota (id_barang, id_member, jumlah, total, tanggal_input, periode) 
-                     VALUES (:id_barang, :id_member, :jumlah, :total, :tanggal_input, :periode)";
-        $stmt_nota = $config->prepare($sql_nota);
-        
-        // Bind parameters with proper type casting
-        $stmt_nota->execute([
-            ':id_barang' => $item['id_barang'],
-            ':id_member' => intval($item['id_member']),
-            ':jumlah' => strval($item['jumlah']),
-            ':total' => strval($item['total']),
-            ':tanggal_input' => $formatted_date,  // Using the formatted date
-            ':periode' => $item['periode']
+
+        // Clear penjualan table
+        $sql_clear = "DELETE FROM penjualan";
+        $stmt_clear = $config->prepare($sql_clear);
+        $stmt_clear->execute();
+
+        $config->commit();
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Pembayaran berhasil'
         ]);
-        
-        // Update stock
-        $sql_update = "UPDATE barang SET stok = :new_stok WHERE id_barang = :id_barang";
-        $stmt_update = $config->prepare($sql_update);
-        $stmt_update->execute([
-            ':new_stok' => $new_stok,
-            ':id_barang' => $item['id_barang']
+    } catch (Exception $e) {
+        $config->rollBack();
+        echo json_encode([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
         ]);
     }
-    
-    // Clear the penjualan table
-    $sql_clear = "DELETE FROM penjualan";
-    $stmt_clear = $config->prepare($sql_clear);
-    $stmt_clear->execute();
-    
-    // Commit transaction
-    $config->commit();
-    
-    echo json_encode([
-        'success' => true,
-        'message' => 'Pembayaran berhasil diproses'
-    ]);
-    
-} catch (Exception $e) {
-    // Rollback on error
-    $config->rollBack();
-    
-    error_log("Payment Processing Error: " . $e->getMessage());
-    
+} else {
     echo json_encode([
         'success' => false,
-        'message' => 'Gagal memproses pembayaran: ' . $e->getMessage()
+        'message' => 'Invalid data received'
     ]);
 }
 ?>
